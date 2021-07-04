@@ -17,10 +17,14 @@ module.exports = {
   ) {
     try {
       let isTestMode;
+      let url;
+      console.log("mode: ", mode);
       if (mode === "test") {
         isTestMode = "Y";
+        url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
       } else if (mode === "production") {
         isTestMode = "N";
+        url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
       } else {
         throw "mode should be test OR production ";
       }
@@ -47,7 +51,6 @@ module.exports = {
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
       };
-      let url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
       let sessionToken = await axios.post(url, xmldata, config);
       const result = parser.parse(sessionToken.data, {});
       return result;
@@ -56,7 +59,18 @@ module.exports = {
     }
   },
 
-  async pay(user, merchantId, pin, amount, sslToken) {
+  async pay(user, merchantId, pin, amount, sslToken, mode) {
+    let url;
+    console.log("mode: ", mode);
+    if (mode === "test") {
+      isTestMode = "Y";
+      url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
+    } else if (mode === "production") {
+      isTestMode = "N";
+      url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
+    } else {
+      throw "mode should be test OR production ";
+    }
     console.log("pin: ", pin);
     console.log("amount: ", amount);
 
@@ -74,7 +88,6 @@ module.exports = {
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
       };
-      let url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
       let sessionToken = await axios.post(url, xmldata, config);
       const result = parser.parse(sessionToken.data, {});
       return result;
@@ -83,14 +96,20 @@ module.exports = {
     }
   },
 
+  async getCardDetails(user, merchantId, pin, sslToken , mode) {
+    let url;
+    console.log("mode: ", mode);
+    if (mode === "test") {
+      isTestMode = "Y";
+      url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
+    } else if (mode === "production") {
+      isTestMode = "N";
+      url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
+    } else {
+      throw "mode should be test OR production ";
+    }
 
-
-  async getCardDetails(user, merchantId, pin, sslToken) {
-
-
-
-
-let xmldata = `xmldata=<txn>
+    let xmldata = `xmldata=<txn>
 <ssl_merchant_id>${merchantId}</ssl_merchant_id>
 <ssl_user_id>${user}</ssl_user_id>
 <ssl_pin>${pin}</ssl_pin>
@@ -101,41 +120,46 @@ let xmldata = `xmldata=<txn>
 <ssl_entry_mode>01</ssl_entry_mode>
 <ssl_get_token>01</ssl_get_token>
 <ssl_token>${sslToken}</ssl_token>
-</txn>`
+</txn>`;
 
-let config = {
-  headers: { "Content-Type": "application/x-www-form-urlencoded" }
-};
-let url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
-let sessionToken = await axios.post(url, xmldata, config);
+    let config = {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    };
+    let sessionToken = await axios.post(url, xmldata, config);
 
-const result = parser.parse(sessionToken.data, {});
-return result;
-
+    const result = parser.parse(sessionToken.data, {});
+    return result;
   },
 
-
-  async deleteCard(user, merchantId, pin, sslToken) {
+  async deleteCard(user, merchantId, pin, sslToken , mode) {
     try {
-        
+      let url;
+      console.log("mode: ", mode);
+      if (mode === "test") {
+        isTestMode = "Y";
+        url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
+      } else if (mode === "production") {
+        isTestMode = "N";
+        url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
+      } else {
+        throw "mode should be test OR production ";
+      }
       let xmldata = `xmldata=<txn>
       <ssl_merchant_id>${merchantId}</ssl_merchant_id>
       <ssl_user_id>${user}</ssl_user_id>
       <ssl_pin>${pin}</ssl_pin>
       <ssl_transaction_type>ccdeletetoken</ssl_transaction_type> 
       <ssl_token>${sslToken}</ssl_token>
-      </txn>`
+      </txn>`;
       let config = {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        };
-        let url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
-        let sessionToken = await axios.post(url, xmldata, config);
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+      };
+      let sessionToken = await axios.post(url, xmldata, config);
 
-
-        const result = parser.parse(sessionToken.data, {});
-        return result;
-      }catch(err){
-          throw err
-      }
+      const result = parser.parse(sessionToken.data, {});
+      return result;
+    } catch (err) {
+      throw err;
+    }
   }
 };
