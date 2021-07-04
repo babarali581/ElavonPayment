@@ -1,0 +1,25 @@
+{
+  "name": "elavon",
+  "version": "1.0.6",
+  "description": "add Card , make payment , delete card , get card",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babarali581/ElavonPayment.git"
+  },
+  "keywords": [
+    "payment",
+    "payment gateway",
+    "Elavon",
+    "converge"
+  ],
+  "author": "Babar ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babarali581/ElavonPayment/issues"
+  },
+  "homepage": "https://github.com/babarali581/ElavonPayment#readme"
+}

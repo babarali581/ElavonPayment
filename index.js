@@ -18,7 +18,6 @@ module.exports = {
     try {
       let isTestMode;
       let url;
-      console.log("mode: ", mode);
       if (mode === "test") {
         isTestMode = "Y";
         url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
@@ -61,7 +60,6 @@ module.exports = {
 
   async pay(user, merchantId, pin, amount, sslToken, mode) {
     let url;
-    console.log("mode: ", mode);
     if (mode === "test") {
       isTestMode = "Y";
       url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
@@ -71,11 +69,6 @@ module.exports = {
     } else {
       throw "mode should be test OR production ";
     }
-    console.log("pin: ", pin);
-    console.log("amount: ", amount);
-
-    console.log("merchantId: ", merchantId);
-    console.log("user: ", user);
     try {
       let xmldata = `xmldata=<txn>
       <ssl_merchant_id>${merchantId}</ssl_merchant_id>
@@ -98,7 +91,6 @@ module.exports = {
 
   async getCardDetails(user, merchantId, pin, sslToken , mode) {
     let url;
-    console.log("mode: ", mode);
     if (mode === "test") {
       isTestMode = "Y";
       url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
@@ -134,7 +126,6 @@ module.exports = {
   async deleteCard(user, merchantId, pin, sslToken , mode) {
     try {
       let url;
-      console.log("mode: ", mode);
       if (mode === "test") {
         isTestMode = "Y";
         url = `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do`;
